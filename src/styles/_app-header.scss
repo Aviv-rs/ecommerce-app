@@ -1,0 +1,53 @@
+.app-header {
+    min-height: 80px;
+    padding: 10px;
+    box-shadow: 0 2px 2px -2px rgb(0 0 0 / 15%);
+    background: $primary-gradient;
+    padding: 10px 2rem;
+    justify-content: space-between;
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 3;
+
+    .logo-container {
+        height: 60px;
+        width: 80px;
+    }
+
+    .links {
+        gap: 10px;
+
+
+
+        .avatar-container {
+            width: 40px;
+            height: 40px;
+
+            img {
+                border-radius: 100%;
+            }
+        }
+
+        .name-container {
+            font-weight: bold;
+            cursor: default;
+
+        }
+
+        .link {
+            font-weight: bold;
+
+            .active {
+                color: $clr-link-active;
+                border-bottom: 2px solid $clr-link-active;
+            }
+        }
+
+        .btn-logout {
+            color: rgba(0, 0, 0, 0.9);
+            font-weight: bold;
+
+        }
+    }
+}

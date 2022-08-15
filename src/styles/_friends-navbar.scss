@@ -1,0 +1,93 @@
+.friends-navbar {
+    position: relative;
+    width: 360px;
+    background-color: #fff;
+    min-height: inherit;
+    z-index: 1;
+
+    .nav-content {
+        min-height: inherit;
+        width: inherit;
+        position: fixed;
+        top: 80px;
+    }
+
+    .friend-count {
+        padding: 8px;
+        font-size: 1.2rem;
+        font-family: "Segoe UI Historic";
+        font-weight: bold;
+    }
+
+    .friend-list {
+        .friend {
+            padding: 8px;
+            min-height: 44px;
+            position: relative;
+
+            .avatar-container {
+                width: 60px;
+                height: 60px;
+                margin-inline-end: 12px;
+
+                img {
+                    border-radius: 100%;
+                }
+            }
+
+            .name-container {
+                font-size: 1.1rem;
+                font-weight: bold;
+                flex: 1;
+            }
+
+            .friend-options-menu {
+                position: absolute;
+                bottom: -20px;
+                right: 0;
+                margin: 0px;
+                min-width: 196px;
+                transform: translate(90%, 40%);
+
+                .option-list {
+                    background-color: #fff;
+                    border-radius: 4px;
+                    box-shadow: 0 16px 24px rgb(0 0 0 / 30%), 0 6px 8px rgb(0 0 0 / 20%);
+                    max-height: calc(100vh - 24px);
+                    max-width: 350px;
+                    min-width: 160px;
+                    overflow-y: auto;
+                    padding: 4px;
+
+                    .option {
+                        cursor: pointer;
+                        color: $clr-font-secondary;
+                        background: transparent;
+                        border: 0;
+                        border-radius: 2px;
+                        text-decoration: none;
+                        align-items: center;
+                        display: flex;
+                        gap: 8px;
+                        height: 40px;
+                        justify-content: space-between;
+                        padding: 12px;
+                        padding-inline-end: 8px;
+                        position: relative;
+                        text-align: start;
+                        user-select: none;
+                        width: 100%;
+
+                        &:hover {
+                            background-color: darken(#fff, 10%);
+                        }
+
+                    }
+                }
+
+            }
+        }
+    }
+
+
+}

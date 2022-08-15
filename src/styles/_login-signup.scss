@@ -1,0 +1,182 @@
+.login-signup-page {
+    padding-bottom: 132px;
+    padding-top: 40px;
+    flex-direction: column;
+
+    @include for-medium-layout {
+        flex-direction: row;
+        justify-content: center;
+
+        div.welcome {
+            .logo-container {
+                margin: 0;
+            }
+        }
+    }
+
+    .welcome {
+        width: 400px;
+
+        .logo-container {
+            height: 111px;
+            padding: 0 0 20px 0;
+            width: 114px;
+            margin: auto;
+        }
+
+        h2 {
+            font-size: 24px;
+            line-height: 28px;
+            font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;
+            font-weight: normal;
+
+            @include for-small-layout {
+                font-size: 28px;
+                line-height: 32px;
+            }
+        }
+    }
+
+    form.login-signup {
+        height: fit-content;
+        width: 400px;
+        text-align: center;
+        background-color: #fff;
+        align-items: center;
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+        padding: 20px 0 28px;
+
+        .form-group {
+            position: relative;
+            display: inline-block;
+            margin: auto;
+            padding: 6px 0;
+
+            .avatar-container {
+                input[type=file] {
+                    display: none;
+                }
+
+
+                .img-container {
+                    height: 20%;
+                    width: 50%;
+                    min-height: 150px;
+                    min-width: 150px;
+                    margin: auto;
+                    position: relative;
+                    aspect-ratio: 1;
+
+                    img {
+                        border-radius: 50%;
+                    }
+
+                    &:hover .add-avatar-txt-container {
+                        display: flex;
+                    }
+
+                    .add-avatar-txt-container {
+                        position: absolute;
+                        transform: translate(-50%, -50%);
+                        top: 50%;
+                        left: 50%;
+                        background: rgba(0, 0, 0, 0.4);
+                        border-radius: 50%;
+                        height: 100%;
+                        width: 100%;
+
+                        @include for-small-layout {
+                            display: none;
+                        }
+
+                        .add-avatar-txt {
+                            color: #fff;
+                            font-size: 1.4rem;
+                        }
+
+
+                    }
+                }
+            }
+
+            input[type=text] {
+                outline: none;
+                display: block;
+                border: 1px solid #ccc;
+                padding-inline-start: 1rem;
+                font-size: 16px;
+                height: 2.5rem;
+                border-bottom-width: 2px;
+                transition: all, 0.2s;
+                border-radius: 8px;
+                background: none;
+                width: 330px;
+
+                &:focus {
+                    border-color: $clr-secondary;
+                }
+
+                &:focus~label,
+                &:not(:placeholder-shown):not(:focus)~label {
+                    top: -0.4rem;
+                    left: 0.8rem;
+                    font-size: 14px;
+                    color: $clr-font;
+                    background: #fff;
+                }
+
+                &::placeholder {
+                    color: transparent;
+                }
+
+                &:focus::placeholder {
+                    color: initial;
+                }
+            }
+
+
+            & label:not([for=avatar]) {
+                color: lighten($clr-font, 30%);
+                cursor: text;
+                position: absolute;
+                left: 1rem;
+                top: 0.9em;
+                transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
+            }
+
+
+        }
+
+        .horizontal-rule {
+            align-items: center;
+            border-bottom: 1px solid #dadde1;
+            display: flex;
+            margin: 20px 16px;
+            text-align: center;
+        }
+
+        .btn-submit {
+            display: block;
+            margin: auto;
+            @include btn(regular, 1rem, $clr-primary);
+            margin-top: 10px;
+            font-size: 1.2rem;
+            border-radius: 6px;
+            color: #fff;
+            width: 330px;
+            font-weight: bold;
+        }
+
+        .btn-toggle-login {
+            display: block;
+            margin: auto;
+            @include btn(regular, 1rem);
+            font-size: 1.2rem;
+            color: #fff;
+            width: 160px;
+            font-weight: bold;
+        }
+    }
+}

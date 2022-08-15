@@ -1,0 +1,48 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: Segoe-UI-Historic Segoe-UI-Regular Assistant, sans-serif, helvetica, arial, sans-serif;
+  font-size: 14px;
+}
+
+body {
+  margin: 0;
+  color: $clr-font;
+  background-color: $clr-bg;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 1rem;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+.grid {
+  display: grid;
+}
