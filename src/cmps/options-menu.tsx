@@ -7,15 +7,22 @@ export const OptionsMenu = ({
   options,
   isOpen = false,
   className = 'options-menu',
+  title,
 }: {
   options: Option[]
   isOpen: boolean
-  className: string
+  className?: string
+  title?: string
 }) => {
   if (!isOpen) return <></>
   return (
     <div className={className}>
       <ul className="option-list clean-list">
+        {title && (
+          <li className="title">
+            <span>{title}</span>{' '}
+          </li>
+        )}
         {options.map((option, idx) => {
           return (
             <li key={idx} onMouseDown={option.action} className="option">

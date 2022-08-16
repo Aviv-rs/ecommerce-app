@@ -1,12 +1,24 @@
 import { LoginSignup } from 'cmps/login-signup'
 import { setUser, setUserMsg } from 'features/user.slice'
 import { UserCredLogin, UserCredSignup } from 'models/user.model'
-import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { RootState } from 'redux-store/store'
 import { userService } from 'services/user.service'
 import Logo from '../assets/imgs/logo.png'
 
 export const LoginSignupPage = () => {
+  const loggedinUser = useSelector(
+    (storeState: RootState) => storeState.user.loggedinUser
+  )
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!!loggedinUser) navigate('/')
+  }, [])
+
   const onSignup = async (credentials: UserCredSignup) => {
     // await userService.signup(credentials)
     // TODO: implement real signup with server

@@ -1,15 +1,5 @@
 // COLOR PALETTE
-// $11lcxa5: #2d2d2d;
-// $clr-2: rgb(45, 45, 45);
-// $1fot7dv: #000;
-// $3pchel: #fff;
-// $1cripqf: rgb(255, 255, 255);
-// $4439lq: #525050;
-// $f1xms7: #666;
-// $10c6hzt: #767676;
-// $na3s62: #dddddd;
-// $1wwppwc: #eeeeee;
-// $sm859b: #f8f8f8;
+
 $clr-primary: #525050;
 $clr-bg: #f0f2f5;
 $clr-secondary: #B8B8FF;
@@ -21,6 +11,8 @@ $clr-btn: #006637;
 $clr-btn-light: #018849;
 $clr-btn2: #E4E6EB;
 $clr-link-active: lightblue;
+$clr-menu-title: #ddd;
+$clr-menu-option-active: #0770cf;
 $primary-gradient: linear-gradient(90deg, $clr-secondary, $clr-primary);
 // LAYOUT
 $layoutPadding: 20px;

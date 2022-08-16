@@ -11,6 +11,19 @@
     right: 0;
     z-index: 3;
 
+    .btn-user-menu {
+        color: inherit;
+
+        &.active {
+            color: $clr-link-active;
+            border-bottom: 2px solid $clr-link-active;
+        }
+    }
+
+    .user-menu {
+        @include menu
+    }
+
     .logo-container {
         height: 65px;
         width: 90px;
@@ -23,10 +36,6 @@
     }
 
     .links {
-        gap: 10px;
-
-
-
         .avatar-container {
             width: 40px;
             height: 40px;
@@ -45,8 +54,12 @@
         .link {
             font-weight: bold;
 
+            &:not(:last-child) {
+                margin-inline-end: 12px;
+            }
+
             .icon {
-                font-size: 27px;
+                font-size: 30px;
             }
 
             .active {
