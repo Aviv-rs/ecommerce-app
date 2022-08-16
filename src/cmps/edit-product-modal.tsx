@@ -1,22 +1,22 @@
 import { useForm } from 'hooks/useForm'
-import { UserCredEdit } from 'models/user.model'
+import { AddProduct, EditProduct, Product } from 'models/product.model'
 import React, { useEffect, useRef } from 'react'
 import { uploadAndGetImgUrl } from 'services/cloudinary.service'
 import { utilService } from 'services/utils'
-import defaultAvatar from '../assets/imgs/default-avatar.png'
+import defaultAvatar from '../assets/imgs/default.jpg'
 
-export const EditUserModal = ({
-  user,
-  updateUserFn,
-  addUserFn,
+export const EditProductModal = ({
+  product,
+  updateProductFn,
+  addProductFn,
   closeModalFn,
 }: {
-  user: UserCredEdit
-  updateUserFn: (cred: UserCredEdit) => void
-  addUserFn: (cred: UserCredEdit) => void
+  product: EditProduct
+  updateProductFn: (product: Product) => void
+  addProductFn: (product: AddProduct) => void
   closeModalFn: () => void
 }) => {
-  const [register, credentials] = useForm({ ...user })
+  const [register, productFields] = useForm({ ...product })
   const modalRef = useRef<HTMLFormElement>(null)
 
   useEffect(() => {
@@ -36,17 +36,17 @@ export const EditUserModal = ({
 
   const handleSubmit = async (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault()
-    const avatarUrl = credentials.avatar
-      ? await uploadAndGetImgUrl(credentials.avatar)
+    const imageUrl = productFields.image
+      ? await uploadAndGetImgUrl(productFields.image)
       : defaultAvatar
-    user._id
-      ? updateUserFn({ ...credentials, avatar: avatarUrl })
-      : addUserFn({ ...credentials, avatar: avatarUrl })
+    product._id
+      ? updateProductFn({ ...productFields, image: imageUrl })
+      : addProductFn({ ...productFields, image: imageUrl })
     closeModalFn()
   }
 
   return (
-    <div className="edit-user-modal">
+    <div className="edit-product-modal">
       <form
         onSubmit={ev => {
           handleSubmit(ev)
@@ -54,41 +54,47 @@ export const EditUserModal = ({
         className="modal-content flex column"
         ref={modalRef}
       >
-        {Object.keys(credentials).map((field: string) => {
+        {Object.keys(productFields).map((field: string) => {
           if (field === '_id') return
+          let inputType = field === 'price' ? 'number' : 'text'
+
           return (
             <div key={field} className="form-group">
-              {field === 'avatar' ? (
-                <div className="avatar-container">
-                  <label htmlFor="avatar">
+              {field === 'image' ? (
+                <div className="image-container">
+                  <label htmlFor="image">
                     <div className="img-container">
                       <img
                         src={
-                          typeof credentials.avatar !== 'string'
-                            ? URL.createObjectURL(credentials.avatar)
-                            : user.avatar
+                          typeof productFields.image !== 'string'
+                            ? URL.createObjectURL(productFields.image)
+                            : product.image
                         }
                         onError={({ currentTarget }) => {
                           currentTarget.onerror = null
                           currentTarget.src = defaultAvatar
                         }}
-                        alt="User's avatar"
+                        alt="Product's image"
                       />
-                      <div className="add-avatar-txt-container flex align-center justify-center">
+                      <div className="add-image-txt-container flex align-center justify-center">
                         {' '}
-                        <div className="add-avatar-txt">
-                          {credentials.password !== undefined
-                            ? 'Add avatar'
-                            : 'Update avatar'}
+                        <div className="add-image-txt">
+                          {product._id !== undefined
+                            ? 'Add image'
+                            : 'Update image'}
                         </div>{' '}
                       </div>
                     </div>
                   </label>
-                  <input id="avatar" {...register(field, '', 'file')} />
+                  <input id="image" {...register(field, '', 'file')} />
                 </div>
               ) : (
                 <>
-                  <input required {...register(field, ' ')} autoComplete="no" />
+                  <input
+                    required
+                    {...register(field, ' ', inputType)}
+                    autoComplete="no"
+                  />
                   <label htmlFor={field}>
                     {utilService.capitalize(field) + ' '}
                   </label>
@@ -98,7 +104,7 @@ export const EditUserModal = ({
           )
         })}
         <button className="btn-submit" type="submit">
-          {credentials.password !== undefined ? 'Add' : 'Update'}
+          {product._id ? 'Update' : 'Add'}
         </button>
       </form>
     </div>

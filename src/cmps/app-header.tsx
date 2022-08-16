@@ -5,10 +5,13 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { RootState } from 'redux-store/store'
 import { mainAppRoutes as routes } from 'routes'
 import { userService } from 'services/user.service'
-import Logo from '../assets/imgs/logo.png'
+import { ReactComponent as Logo } from '../assets/imgs/logo.svg'
+// import Logo from '../assets/imgs/logo.png'
 
 export function AppHeader() {
-  const user = useSelector((state: RootState) => state.user.loggedinUser)
+  const loggedinUser = useSelector(
+    (state: RootState) => state.user.loggedinUser
+  )
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
@@ -21,27 +24,31 @@ export function AppHeader() {
 
   return (
     <header className="app-header flex ">
-      <div className="logo-container flex align-center column">
-        <img src={Logo} alt="" />
-      </div>
+      <NavLink to={'/'} className="logo-container flex align-center column">
+        <Logo />
+        <span className="brand-name">T-shop</span>
+      </NavLink>
 
       <ul className="links clean-list flex align-center">
         {routes.map(route => {
+          if (route.path === '/admin' && loggedinUser?.role !== 'admin') return
           return (
             <li key={route.title} className="link">
-              <NavLink end to={route.path}>
-                {route.title}
+              <NavLink end to={route.path} title={route.title}>
+                <route.icon className="icon" />
               </NavLink>
             </li>
           )
         })}
-        <li className="logout">
-          <button className="clean-btn btn-logout" onClick={onLogout}>
-            Logout
-          </button>
-        </li>
+        {loggedinUser && (
+          <li className="logout">
+            <button className="clean-btn btn-logout" onClick={onLogout}>
+              Logout
+            </button>
+          </li>
+        )}
         <li className="flex align-center column">
-          <span className="name-container">{user?.fullname}</span>
+          <span className="name-container">{loggedinUser?.fullname}</span>
         </li>
       </ul>
     </header>

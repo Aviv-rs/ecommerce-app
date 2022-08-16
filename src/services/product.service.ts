@@ -45,8 +45,8 @@ async function update(product: Product) {
 
 function getEmptyProduct(): AddProduct {
   return {
-    name: '',
     image: '',
+    name: '',
     description: '',
     price: 0,
   }

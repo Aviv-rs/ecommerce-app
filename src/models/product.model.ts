@@ -13,6 +13,14 @@ export interface AddProduct {
   image: string
 }
 
+export interface EditProduct {
+  _id?: string
+  name: string
+  description: string
+  price: number
+  image: string
+}
+
 export interface OrderProduct {
   _id: string
   name: string

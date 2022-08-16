@@ -1,4 +1,4 @@
-.edit-user-modal {
+.edit-product-modal {
     inset: 0;
     position: fixed;
     background-color: rgb(0 0 0 / 70%);
@@ -20,13 +20,15 @@
             margin: auto;
             padding: 6px 0;
 
-            .avatar-container {
+            .image-container {
                 input[type=file] {
                     display: none;
                 }
 
 
                 .img-container {
+                    min-height: 200px;
+                    min-width: 200px;
                     height: 20%;
                     width: 50%;
                     margin: auto;
@@ -37,11 +39,11 @@
                         border-radius: 50%;
                     }
 
-                    &:hover .add-avatar-txt-container {
+                    &:hover .add-image-txt-container {
                         display: flex;
                     }
 
-                    .add-avatar-txt-container {
+                    .add-image-txt-container {
                         display: none;
                         position: absolute;
                         transform: translate(-50%, -50%);
@@ -52,7 +54,7 @@
                         height: 100%;
                         width: 100%;
 
-                        .add-avatar-txt {
+                        .add-image-txt {
                             color: #fff;
                             font-size: 1.4rem;
                         }
@@ -62,7 +64,8 @@
                 }
             }
 
-            input[type=text] {
+            input[type=text],
+            input[type=number] {
                 outline: none;
                 display: block;
                 border: 1px solid #ccc;
@@ -98,7 +101,7 @@
             }
 
 
-            & label:not([for=avatar]) {
+            & label:not([for=image]) {
                 color: lighten($clr-font, 30%);
                 cursor: text;
                 position: absolute;

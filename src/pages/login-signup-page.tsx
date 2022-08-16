@@ -9,6 +9,7 @@ export const LoginSignupPage = () => {
   const dispatch = useDispatch()
   const onSignup = async (credentials: UserCredSignup) => {
     // await userService.signup(credentials)
+    // TODO: implement real signup with server
     dispatch(
       setUser({
         _id: '1',
@@ -23,13 +24,15 @@ export const LoginSignupPage = () => {
 
   const onLogin = async (credentials: UserCredLogin) => {
     const { username } = credentials
-    setUser({
-      _id: '1',
-      fullname: 'Sasuke uchiha',
-      role: 'visitor',
-      orders: [],
-      username,
-    })
+    dispatch(
+      setUser({
+        _id: '1',
+        fullname: 'Sasuke uchiha',
+        role: 'admin',
+        orders: [],
+        username,
+      })
+    )
     // await userService.login(credentials)
   }
 

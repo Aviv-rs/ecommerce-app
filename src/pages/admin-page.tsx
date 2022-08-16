@@ -1,51 +1,48 @@
-import { EditUserModal } from 'cmps/edit-user-modal'
-import { User, UserCredEdit, UserCredSignup } from 'models/user.model'
+import { EditProductModal } from 'cmps/edit-product-modal'
+import {
+  addProduct,
+  deleteProduct,
+  updateProduct,
+} from 'features/product.slice'
+import { Product, AddProduct, EditProduct } from 'models/product.model'
 import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { userService } from 'services/user.service'
+import { RootState } from 'redux-store/store'
+import { productService } from 'services/product.service'
 
 export const AdminPage = () => {
-  const [users, setUsers] = useState([] as User[])
+  const products = useSelector((state: RootState) => state.product.products)
+  const loggedinUser = useSelector(
+    (state: RootState) => state.user.loggedinUser
+  )
+
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [userToUpdate, setUserToUpdate] = useState({} as User)
+  const [productToEdit, setProductToEdit] = useState({} as EditProduct)
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
-    const loggedinUser = userService.getLoggedinUser()
-    if (loggedinUser?.role !== 'admin') return navigate('/')
-
-    loadUsers()
+    if (loggedinUser?.role !== 'admin') navigate('/')
   }, [])
 
-  const loadUsers = async () => {
-    const users = await userService.getUsers()
-    setUsers(users)
+  // TODO: connect a server + db that the productservice can use it
+  const onDeleteProduct = async (productId: string) => {
+    // await productService.remove(productId)
+    dispatch(deleteProduct(productId))
   }
 
-  const onDeleteUser = async (userId: string) => {
-    await userService.remove(userId)
-    setUsers((prevUsers: User[]) =>
-      prevUsers.filter((user: User) => user._id !== userId)
-    )
+  const onUpdateProduct = async (product: Product) => {
+    // const savedProduct = await productService.update({
+    //   ...product,
+    // } as Product)
+    dispatch(updateProduct(product))
   }
 
-  const onUpdateUser = async (cred: User) => {
-    const savedUser = await userService.update({
-      ...cred,
-    } as User)
-
-    setUsers((prevUsers: User[]) => {
-      const newUsers = prevUsers.map((user: User) => {
-        if (user._id === savedUser._id) return { ...savedUser }
-        return user
-      })
-      return newUsers
-    })
-  }
-
-  const onAddUser = async (cred: UserCredEdit) => {
-    const savedUser = await userService.add(cred as UserCredSignup)
-    setUsers((prevUsers: User[]) => [...prevUsers, savedUser])
+  const onAddProduct = async (product: AddProduct) => {
+    // const savedProduct = await productService.add(product)
+    const savedProduct = { ...product, _id: Date.now() + '' }
+    dispatch(addProduct(savedProduct))
   }
 
   const closeModal = () => {
@@ -59,44 +56,48 @@ export const AdminPage = () => {
         <button
           className="btn-add"
           onClick={() => {
-            // setUserToUpdate(userService.getEmptyUser())
+            setProductToEdit(productService.getEmptyProduct())
             setIsModalOpen(true)
           }}
         >
-          Add user
+          Add product
         </button>
       </div>
-      <table className="users-table">
+      <table className="products-table">
         <thead>
           <tr>
-            <th className="column1">User avatar</th>
-            <th>Full name</th>
-            <th>Username</th>
+            <th className="column1">Product image</th>
+            <th>Name</th>
+            <th>Price</th>
             <th className="actions">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {users.map((user: User) => {
-            if (user.role === 'admin') return
-            const { fullname, username, _id } = user
-            const updateFields = { fullname, username, _id }
+          {products.map((product: Product) => {
+            const { image, name, price, _id, description } = product
+            const updateFields = { image, name, price, _id, description }
             return (
-              <tr key={user._id} className="user-info-row">
-                <td className="column1"></td>
-                <td>{user.fullname}</td>
-                <td>{user.username}</td>
+              <tr key={product._id} className="product-info-row">
+                <td className="column1">
+                  <div className="avatar">
+                    <img src={image} alt="" />
+                  </div>
+                </td>
+                <td>{product.name}</td>
+                <td>${product.price}</td>
                 <td>
                   <div className="actions flex">
                     <button
                       onClick={() => {
                         setIsModalOpen(true)
+                        setProductToEdit(updateFields)
                       }}
                       className="btn-edit"
                     >
                       Edit
                     </button>
                     <button
-                      onClick={() => onDeleteUser(user._id)}
+                      onClick={() => onDeleteProduct(product._id)}
                       className="btn-delete"
                     >
                       Delete
@@ -108,14 +109,14 @@ export const AdminPage = () => {
           })}
         </tbody>
       </table>
-      {/* {isModalOpen && (
-        <EditUserModal
-          user={userToUpdate}
-          updateUserFn={onUpdateUser}
-          addUserFn={onAddUser}
+      {isModalOpen && (
+        <EditProductModal
+          product={productToEdit}
+          updateProductFn={onUpdateProduct}
+          addProductFn={onAddProduct}
           closeModalFn={closeModal}
         />
-      )} */}
+      )}
     </section>
   )
 }

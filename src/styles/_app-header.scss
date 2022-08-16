@@ -2,7 +2,8 @@
     min-height: 80px;
     padding: 10px;
     box-shadow: 0 2px 2px -2px rgb(0 0 0 / 15%);
-    background: $primary-gradient;
+    color: $clr-font-light;
+    background: $clr-primary;
     padding: 10px 2rem;
     justify-content: space-between;
     position: fixed;
@@ -11,8 +12,14 @@
     z-index: 3;
 
     .logo-container {
-        height: 60px;
-        width: 80px;
+        height: 65px;
+        width: 90px;
+        gap: 5px;
+
+        .brand-name {
+            letter-spacing: 0.1em;
+        }
+
     }
 
     .links {
@@ -38,6 +45,10 @@
         .link {
             font-weight: bold;
 
+            .icon {
+                font-size: 27px;
+            }
+
             .active {
                 color: $clr-link-active;
                 border-bottom: 2px solid $clr-link-active;
@@ -45,9 +56,8 @@
         }
 
         .btn-logout {
-            color: rgba(0, 0, 0, 0.9);
+            color: inherit;
             font-weight: bold;
-
         }
     }
 }
